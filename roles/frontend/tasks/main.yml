@@ -1,3 +1,4 @@
-- name: Print Component Name
-  ansible.builtin.debug:
-     msg: COMPONENT = {{COMPONENT}}
+- name: Install Nginx
+  yum:
+     name: nginx
+     state: installed
