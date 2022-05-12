@@ -38,4 +38,4 @@ aws route53 change-resource-record-sets --hosted-zone-id Z10056041904PV3USAS19 -
 echo "DNS record created"
 
 sed -i -e '/frontend/,+1 d' inv
-echo "[${COMPONENT}]\n${IPADDRESS}" >>inv
+echo "[${INSTANCE_NAMEs}]\n${IPADDRESS}" >>inv
