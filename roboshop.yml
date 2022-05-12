@@ -1,4 +1,4 @@
 - name: Roboshop setup Playbook
   hosts: "{{ HOST }}"
   roles:
-    - "{{ROLE_NAME}}"
+    - "{{ ROLE_NAME }}"
