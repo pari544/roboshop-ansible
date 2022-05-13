@@ -44,6 +44,7 @@
     src: /tmp/catalogue-main/
     dest: /home/roboshop/catalogue
     remote_src: yes
+  become_user: roboshop
 
 #- name: Install NodeJS modules.
 #  community.general.npm:
