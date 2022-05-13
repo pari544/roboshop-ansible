@@ -1,0 +1,51 @@
+#ECHO "Configure NodeJS YUM Repos"
+#curl -sL https://rpm.nodesource.com/setup_lts.x | bash  &>>${LOG_FILE}
+#statusCheck $?
+#
+#ECHO "Install NodeJS"
+#yum install nodejs  gcc-c++ -y &>>${LOG_FILE}
+#statusCheck $?
+#
+#APPLICATION_SETUP
+#
+#ECHO "Install NodeJS Modules"
+#cd /home/roboshop/${COMPONENT} && npm install &>>${LOG_FILE}
+#statusCheck $?
+#
+#SYSTEMD_SETUP
+
+- name: Setup Yum Repo
+  ansible.builtin.shell: https://rpm.nodesource.com/setup_lts.x | bash
+
+- name: Install NodeJS
+  ansible.builtin.yum:
+    name:
+        - nodejs
+        - gcc-c++
+    state: installed
+
+- name: Add a Application User
+  ansible.builtin.user:
+    name: roboshop
+
+- name: Download and Extract catalogue content
+  ansible.builtin.unarchive:
+    src: https://github.com/roboshop-devops-project/catalogue/archive/main.zip
+    dest: /tmp
+    remote_src: yes
+
+- name: Clean old Catalogue content
+  ansible.builtin.file:
+    path: /home/roboshop/catalogue
+    state: absent
+
+- name: Copy Catalogue Code
+  ansible.builtin.copy:
+    src: /tmp/catalogue-main/
+    dest: /home/roboshop/catalogue
+    remote_src: yes
+
+#- name: Install NodeJS modules.
+#  community.general.npm:
+#    name: coffee-script
+#    path: /home/roboshop/catalogue/
