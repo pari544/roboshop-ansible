@@ -1,18 +1,3 @@
-#ECHO "Configure NodeJS YUM Repos"
-#curl -sL https://rpm.nodesource.com/setup_lts.x | bash  &>>${LOG_FILE}
-#statusCheck $?
-#
-#ECHO "Install NodeJS"
-#yum install nodejs  gcc-c++ -y &>>${LOG_FILE}
-#statusCheck $?
-#
-#APPLICATION_SETUP
-#
-#ECHO "Install NodeJS Modules"
-#cd /home/roboshop/${COMPONENT} && npm install &>>${LOG_FILE}
-#statusCheck $?
-#
-#SYSTEMD_SETUP
 
 - name: Setup Yum Repo
   ansible.builtin.shell: https://rpm.nodesource.com/setup_lts.x | bash
@@ -46,7 +31,13 @@
     remote_src: yes
   become_user: roboshop
 
-#- name: Install NodeJS modules.
-#  community.general.npm:
-#    name: coffee-script
-#    path: /home/roboshop/catalogue/
+- name: Install NodeJS Dependencies
+  community.general.npm:
+    path: /home/roboshop/catalogue/
+
+#- name: Start MongoDB Service
+#  ansible.builtin.systemd:
+#    state: restarted
+#    name: mongod
+#    enabled: yes
+
