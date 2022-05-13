@@ -1,0 +1,41 @@
+
+#cd mongodb-main
+#ECHO "Load Schema"
+#mongo < catalogue.js &>>${LOG_FILE} && mongo < users.js &>>${LOG_FILE}
+#statusCheck $?
+
+- name: Copy Mongodb Yum Repo file
+  ansible.builtin.copy:
+    src: mongodb.repo
+    dest: /etc/yum.repos.d/mongodb.repo
+
+- name: Install MongoDB
+  ansible.builtin.yum:
+    name: mongodb-org
+    state: installed
+
+- name: Update the MongoDB config to listen on 0.0.0.0
+  ansible.builtin.replace:
+    path: /etc/mongod.conf
+    regexp: '127.0.0.0'
+    replace: '0.0.0.0'
+
+- name: Start MongoDB Service
+  ansible.builtin.systemd:
+    state: restarted
+    name: mongod
+    enabled: yes
+
+- name: Download & Extract Schema
+  ansible.builtin.unarchive:
+    src: https://github.com/roboshop-devops-project/mongodb/archive/main.zip
+    dest: /tmp
+    remote_src: yes
+
+- name: Load Schema
+  community.mongodb.mongodb_shell:
+    file: "/tmp/mongodb-main/{{item}}.js"
+    idempotent: yes
+    loop:
+      - catalogue
+      - user
