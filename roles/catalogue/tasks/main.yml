@@ -35,9 +35,15 @@
   community.general.npm:
       path: /home/roboshop/catalogue
 
-#- name: Start MongoDB Service
-#  ansible.builtin.systemd:
-#    state: restarted
-#    name: mongod
-#    enabled: yes
+- name: Setup Systemd Config file
+  ansible.builtin.template:
+    src: systemd.service
+    dest: /etc/systemd/system/catalogue.service
+
+- name: Start Catalogue Service
+  ansible.builtin.systemd:
+    name: catalogue
+    state: restarted
+    enabled: yes
+    daemon-reload: yes
 
