@@ -33,7 +33,7 @@
 
 - name: Install NodeJS Dependencies
   community.general.npm:
-    path: /home/roboshop/catalogue
+      path: /home/roboshop/catalogue
 
 #- name: Start MongoDB Service
 #  ansible.builtin.systemd:
