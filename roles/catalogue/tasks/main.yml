@@ -1,4 +1,4 @@
 - name: Install NodeJS from Role
-    import_role:
-      name: common
-      tasks_from: nodejs
+  import_role:
+     name: common
+     tasks_from: nodejs
