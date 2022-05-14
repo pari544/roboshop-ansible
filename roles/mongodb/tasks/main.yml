@@ -1,9 +1,4 @@
 
-#cd mongodb-main
-#ECHO "Load Schema"
-#mongo < catalogue.js &>>${LOG_FILE} && mongo < users.js &>>${LOG_FILE}
-#statusCheck $?
-
 - name: Copy Mongodb Yum Repo file
   ansible.builtin.copy:
     src: mongodb.repo

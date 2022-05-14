@@ -1,0 +1,56 @@
+
+- name: Copy MySQL Yum Repo file
+  ansible.builtin.copy:
+    src: mysql.repo
+    dest: /etc/yum.repos.d/mysql.repo
+
+- name: Install MySQL Server
+  ansible.builtin.yum:
+    name:
+      - mysql-community-server
+      - MySQL-python
+    state: installed
+
+- name: Start MySQL Service
+  ansible.builtin.systemd:
+    state: restarted
+    name: mysqld
+    enabled: yes
+
+- name: Check MySQL Working with NEW Credentials or not
+  mysql_info:
+    login_user: root
+    login_password: RoboShop@1
+    filter: version
+  ignore_errors: true
+  register: status
+
+- name: Reset Default password tasks
+  when: status.failed | bool
+  block:
+    - name: Copy MySQL Password reset sql file
+      ansible.builtin.copy:
+        src: password-reset.sql
+        dest: /tmp/password-reset.sql
+
+    - name: Grab Default Password
+      ansible.builtin.shell: grep 'A temporary password' /var/log/mysqld.log | awk '{print $NF}'
+      register: DEFAULT_PASSWORD
+
+    - name: Reset the password
+      ansible.builtin.shell: mysql --connect-expired-password -u root -p{{DEFAULT_PASSWORD.stdout}} </tmp/password-reset.sql
+
+- name: Download & Extract MySQL Content
+  ansible.builtin.unarchive:
+    src: https://github.com/roboshop-devops-project/mysql/archive/main.zip
+    dest: /tmp
+    remote_src: yes
+
+- name: Load Schema
+  mysql_db:
+    login_user: root
+    login_password: RoboShop@1
+    state: import
+    name: all
+    target: /tmp/mysql-main/shipping.sql
+
