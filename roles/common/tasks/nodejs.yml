@@ -13,36 +13,36 @@
   ansible.builtin.user:
     name: roboshop
 
-- name: Download and Extract catalogue content
+- name: Download and Extract {{COMPONENT}} content
   ansible.builtin.unarchive:
-    src: https://github.com/roboshop-devops-project/catalogue/archive/main.zip
+    src: https://github.com/roboshop-devops-project/{{COMPONENT}}/archive/main.zip
     dest: /tmp
     remote_src: yes
 
-- name: Clean old Catalogue content
+- name: Clean old {{COMPONENT}} content
   ansible.builtin.file:
-    path: /home/roboshop/catalogue
+    path: /home/roboshop/{{COMPONENT}}
     state: absent
 
-- name: Copy Catalogue Code
+- name: Copy {COMPONENT} Code
   ansible.builtin.copy:
-    src: /tmp/catalogue-main/
-    dest: /home/roboshop/catalogue
+    src: /tmp/{{COMPONENT}}-main/
+    dest: /home/roboshop/{{COMPONENT}}
     remote_src: yes
   become_user: roboshop
 
 - name: Install NodeJS Dependencies
   community.general.npm:
-    path: /home/roboshop/catalogue
+    path: /home/roboshop/{{COMPONENT}}
 
 - name: Setup Systemd Config file
   ansible.builtin.template:
     src: systemd.service
-    dest: /etc/systemd/system/catalogue.service
+    dest: /etc/systemd/system/{{COMPONENT}}.service
 
-- name: Start Catalogue Service
+- name: Start {{COMPONENT}} Service
   ansible.builtin.systemd:
-    name: catalogue
+    name: "{{COMPONENT}}"
     state: restarted
     enabled: yes
     daemon-reload: yes
