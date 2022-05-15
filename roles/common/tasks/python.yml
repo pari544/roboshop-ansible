@@ -15,9 +15,15 @@
   pip:
     requirements: /home/roboshop/{{COMPONENT}}/requirements.txt
     executable: pip3
-- name: Print
-  debug:
-     msg: "{{APPUSER}}"
+
+- name: Update Application Configuration - User Info
+  ansible.builtin.lineinfile:
+    path: /home/roboshop/{{COMPONENT}}/{{COMPONENT}}.ini
+    regexp: "{{item.string}}"
+    line: uid = {[item.value}}
+  loop:
+    - { string: "^uid=", value: "{{APPUSER.uid}}"}
+    - { string: "^gid=", value: "{{APPUSER.group}}"}
 
 - name: Systemd Setup
   import_role:
