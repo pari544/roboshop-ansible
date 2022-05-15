@@ -2,6 +2,7 @@
   ansible.builtin.template:
     src: systemd.service
     dest: /etc/systemd/system/{{COMPONENT}}.service
+  notify: Reload
 
 - name: Start {{COMPONENT}} Service
   ansible.builtin.systemd:
