@@ -1,15 +1,14 @@
-- name: Setup Systemd Config file
+- name: Setup SystemD Config File
   ansible.builtin.template:
     src: systemd.service
     dest: /etc/systemd/system/{{COMPONENT}}.service
   notify: Reload
 
 - name: Flush handlers
-  meta: flush handlers
+  meta: flush_handlers
 
 - name: Start {{COMPONENT}} Service
   ansible.builtin.systemd:
     name: "{{COMPONENT}}"
     state: restarted
     enabled: yes
-    daemon-reload: yes
