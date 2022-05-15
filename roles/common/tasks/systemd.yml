@@ -4,6 +4,9 @@
     dest: /etc/systemd/system/{{COMPONENT}}.service
   notify: Reload
 
+- name: Flush handlers
+  meta: flush handlers
+
 - name: Start {{COMPONENT}} Service
   ansible.builtin.systemd:
     name: "{{COMPONENT}}"
