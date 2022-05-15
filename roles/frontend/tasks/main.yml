@@ -1,8 +1,7 @@
-
 - name: Install Nginx
   yum:
-     name: nginx
-     state: installed
+    name: nginx
+    state: installed
 
 - name: Remove old content
   ansible.builtin.file:
