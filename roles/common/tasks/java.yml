@@ -10,8 +10,8 @@
     name: common
     tasks_from: download-from-github
 
-- name: Compile Java Code
-  ansible.builtin.shell: mvn clean package && mv target/${{COMPONENT}}-1.0.jar ${{COMPONENT}}.jar
+- name: Compile Java code
+  ansible.builtin.shell: mvn clean package && mv target/{{COMPONENT}}-1.0.jar {{COMPONENT}}.jar
   args:
       chdir: /home/roboshop/{{COMPONENT}}
 
