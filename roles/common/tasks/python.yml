@@ -14,7 +14,7 @@
 - name: Python Dependencies
     pip:
       requirements: /home/roboshop/{{COMPONENT}}/requirements.txt
-        executable: pip3
+      executable: pip3
 
 - name: Print
   debug:
