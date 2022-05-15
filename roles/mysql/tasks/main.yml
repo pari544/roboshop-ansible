@@ -1,5 +1,4 @@
-
-- name: Copy MySQL Yum Repo file
+- name: Copy MySQL Repo file
   ansible.builtin.copy:
     src: mysql.repo
     dest: /etc/yum.repos.d/mysql.repo
@@ -13,11 +12,11 @@
 
 - name: Start MySQL Service
   ansible.builtin.systemd:
-    state: restarted
     name: mysqld
+    state: started
     enabled: yes
 
-- name: Check MySQL Working with NEW Credentials or not
+- name: Check MySQL Working with NEW Credentisls or not
   mysql_info:
     login_user: root
     login_password: RoboShop@1
