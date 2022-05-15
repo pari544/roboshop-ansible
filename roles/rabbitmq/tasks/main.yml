@@ -1,15 +1,4 @@
 
-#rabbitmqctl list_users | grep roboshop &>>${LOG_FILE}
-#if [ $? -ne 0 ]; then
-#  ECHO "Create an Application User"
-#  rabbitmqctl add_user roboshop roboshop123 &>>${LOG_FILE}
-#  statusCheck $?
-#fi
-#
-#ECHO "Setup Application User Persmissions"
-#rabbitmqctl set_user_tags roboshop administrator  &>>${LOG_FILE} && rabbitmqctl set_permissions -p / roboshop ".*" ".*" ".*"  &>>${LOG_FILE}
-#statusCheck $?
-
 - name: Configure YUM Repos
   ansible.builtin.shell: curl -s https://packagecloud.io/install/repositories/rabbitmq/rabbitmq-server/script.rpm.sh | bash
 
