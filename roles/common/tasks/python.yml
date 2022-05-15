@@ -17,7 +17,7 @@
     executable: pip3
 - name: Print
   debug:
-     msg: {{APPUSER}}
+     msg: "{{APPUSER}}"
 
 - name: Systemd Setup
   import_role:
