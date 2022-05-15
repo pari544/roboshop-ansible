@@ -12,13 +12,9 @@
     tasks_from: download-from-github
 
 - name: Python Dependencies
-    pip:
-      requirements: /home/roboshop/{{COMPONENT}}/requirements.txt
-      executable: pip3
-
-- name: Print
-  debug:
-    msg: {{APPUSER}}
+  pip:
+    requirements: /home/roboshop/{{COMPONENT}}/requirements.txt
+    executable: pip3
 
 - name: Systemd Setup
   import_role:
