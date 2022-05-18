@@ -1,0 +1,17 @@
+- name: Install Golang
+  ansible.builtin.yum:
+    name: golang
+    state: installed
+
+- name: Download from Github
+  import_role:
+    name: common
+    tasks_from: download-from-github
+
+- name: Systemd Setup
+  import_role:
+    name: common
+    tasks_from: systemd
+
+
+}
