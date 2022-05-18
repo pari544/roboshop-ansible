@@ -1,5 +1,4 @@
-
-- name: Copy Mongodb Yum Repo file
+- name: Copy MongoDB yum repo file
   ansible.builtin.copy:
     src: mongodb.repo
     dest: /etc/yum.repos.d/mongodb.repo
@@ -9,19 +8,19 @@
     name: mongodb-org
     state: installed
 
-- name: Update the MongoDB config to listen on 0.0.0.0
+- name: Update MongoDB config to listen on 0.0.0.0
   ansible.builtin.replace:
     path: /etc/mongod.conf
     regexp: '127.0.0.1'
     replace: '0.0.0.0'
 
-- name: Start MongoDB Service
+- name: Start MongoDB
   ansible.builtin.systemd:
-    state: restarted
     name: mongod
+    state: restarted
     enabled: yes
 
-- name: Download & Extract Schema
+- name: Download & Extract MongoDB Content
   ansible.builtin.unarchive:
     src: https://github.com/roboshop-devops-project/mongodb/archive/main.zip
     dest: /tmp
