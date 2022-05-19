@@ -4,18 +4,25 @@
 
 - name: Install Erlang & NodeJS
   ansible.builtin.yum:
-      name:
-          - https://github.com/rabbitmq/erlang-rpm/releases/download/v23.2.6/erlang-23.2.6-1.el7.x86_64.rpm
-          - rabbitmq-server
-      state: installed
+    name:
+      - https://github.com/rabbitmq/erlang-rpm/releases/download/v23.2.6/erlang-23.2.6-1.el7.x86_64.rpm
+      - rabbitmq-server
+    state: installed
 
 - name: Start RabbitMQ Service
   ansible.builtin.systemd:
-    state: restarted
     name: rabbitmq-server
+    state: restarted
     enabled: yes
 
-- name: Configure Application user
+- name: Install Python Modules
+  pip:
+    name:
+      - botocore
+      - boto3
+    executable: pip3
+
+- name: Configure application user
   community.rabbitmq.rabbitmq_user:
     user: roboshop
     password: roboshop123

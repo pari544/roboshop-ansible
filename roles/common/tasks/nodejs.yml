@@ -1,6 +1,5 @@
-
-- name: Setup Yum Repo
-  ansible.builtin.shell: https://rpm.nodesource.com/setup_lts.x | bash
+- name: Setup Yum repos
+  ansible.builtin.shell: curl -s https://rpm.nodesource.com/setup_lts.x | bash
 
 - name: Install NodeJS
   ansible.builtin.yum:
@@ -18,8 +17,9 @@
   community.general.npm:
     path: /home/roboshop/{{COMPONENT}}
 
-- name: Systemd Setup
+- name: SystemD Setup
   import_role:
     name: common
     tasks_from: systemd
+
 

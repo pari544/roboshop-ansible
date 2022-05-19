@@ -12,3 +12,4 @@
     name: "{{COMPONENT}}"
     state: restarted
     enabled: yes
+

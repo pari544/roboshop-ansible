@@ -1,13 +1,12 @@
 #!/bin/bash
 
-if [ -z $1 ]; then
-  echo "Instance name as the first argument is needed"
+if [ -z "$1" ]; then
+  echo "Instance Name as argument is needed"
   exit 1
 fi
 
 if [ "$1" == "list" ]; then
-  aws ec2 describe-instances --query "Reservations[*].Instances[*].{PrivateIp:PrivateIpAddress,PublicIP:PublicIpAddress,Name:Tags[?Key=='Name']|[0].Value,
-  Status:State.Name}"  --output table
+  aws ec2 describe-instances  --query "Reservations[*].Instances[*].{PrivateIP:PrivateIpAddress,PublicIP:PublicIpAddress,Name:Tags[?Key=='Name']|[0].Value,Status:State.Name}"  --output table
   exit 0
 fi
 
