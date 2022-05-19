@@ -1,0 +1,18 @@
+- name: Install Maven
+  ansible.builtin.yum:
+    name:
+      - golang
+    state: installed
+
+- name: Download from Github
+  import_role:
+    name: common
+    tasks_from: download-from-github
+
+- name: SystemD Setup
+  import_role:
+    name: common
+    tasks_from: systemd
+
+
+
