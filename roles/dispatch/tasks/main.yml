@@ -1,4 +1,4 @@
-- name: Include Java from role
+- name: Include GoLang from role
   import_role:
     name: common
     tasks_from: golang

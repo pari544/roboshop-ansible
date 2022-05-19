@@ -1,4 +1,4 @@
-- name: Install Maven
+- name: Install GoLang
   ansible.builtin.yum:
     name:
       - golang
