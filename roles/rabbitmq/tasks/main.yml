@@ -24,8 +24,8 @@
 
 - name: Configure application user
   community.rabbitmq.rabbitmq_user:
-    user: roboshop
-    password: roboshop123
+    user: "{{SECRET.RABBITMQ_USER}}"
+    password: "{{SECRET.RABBITMQ_USER}}"
     configure_priv: .*
     read_priv: .*
     write_priv: .*
