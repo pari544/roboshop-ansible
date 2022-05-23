@@ -1,4 +1,3 @@
-
 - name: Configure YUM Repos
   ansible.builtin.shell: curl -s https://packagecloud.io/install/repositories/rabbitmq/rabbitmq-server/script.rpm.sh | bash
 
@@ -25,7 +24,7 @@
 - name: Configure application user
   community.rabbitmq.rabbitmq_user:
     user: "{{SECRET.RABBITMQ_USER}}"
-    password: "{{SECRET.RABBITMQ_USER}}"
+    password: "{{SECRET.RABBITMQ_PASS}}"
     configure_priv: .*
     read_priv: .*
     write_priv: .*
