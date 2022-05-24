@@ -39,3 +39,5 @@ echo DNS Record Created
 touch inv
 sed -i -e "/${NAME}/,+1 d" inv
 echo -e "[${NAME}]\n${IPADDRESS}" >>inv
+
+
