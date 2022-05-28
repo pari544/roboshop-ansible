@@ -14,7 +14,7 @@ pipeline {
 
        stage('Create Instance') {
          steps {
-            sh 'bash create-ec2-with-ev.sh ${COMPONENT} ${ENV}'
+            sh 'bash create-ec2-with-env.sh ${COMPONENT} ${ENV}'
 
          }
        }
