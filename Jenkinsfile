@@ -15,12 +15,12 @@ pipeline {
        stage('Create Instance') {
          steps {
             sh 'bash create-ec2-with-env.sh ${COMPONENT} ${ENV}'
-
+            sh 'ls -ltr'
          }
        }
 
        stage('Run Ansible Playbook') {
-
+        sh 'ls -ltr'
         steps {
            sh 'ansible-playbook roboshop.yml -e ENV=${ENV} -e ansible_user=${SSH_USR} -e ansible_password=${SSH_PSW} -e HOST=${COMPONENT} -e ROLE_NAME=${COMPONENT}'
 
