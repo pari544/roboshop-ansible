@@ -22,7 +22,9 @@ pipeline {
 
        stage('Create Instance') {
          steps {
-            sh 'bash create-ec2-with-env.sh ${COMPONENT} ${ENV}'
+            script {
+                ec2InstanceCreate.create("${COMPONENT}", "${ENV}")
+            }
          }
        }
 
